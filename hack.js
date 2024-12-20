@@ -16,9 +16,17 @@ function dork() {
 	}
 }
 
-if (Math.random() < 0.25) {
-  alert("U HAVE BIN SPARED! ur ok");
-} else {
-  alert("RUN");
-  setInterval(dork, 25);
+function decide() {
+	/* Let's only affect posts, please -- everything else was too powerful */
+	if (!(/glumbo\.forumotion\.com\/t[0-7]*/.test(window.location.href))) {
+		console.log("NTOP GOT NERFED >:(");
+		return;
+	}
+	if (Math.random() < 0.25) {
+	  alert("U HAVE BIN SPARED! ur ok");
+	} else {
+	  alert("RUN");
+	  setInterval(dork, 25);
+	}
 }
+decide();
