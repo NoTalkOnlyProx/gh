@@ -20,5 +20,5 @@ function dork() {
 if (Math.random() < 0.25) {
   alert("U HAVE BIN SPARED! ur ok");
 } else {
-  setInterval(dork, 100);
+  setInterval(dork, 25);
 }
