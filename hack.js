@@ -1,5 +1,4 @@
 console.log("success");
-alert("is anyone out there?");
 
 function dork() { 
 	let allelems = document.querySelectorAll("*");
@@ -20,5 +19,6 @@ function dork() {
 if (Math.random() < 0.25) {
   alert("U HAVE BIN SPARED! ur ok");
 } else {
+  alert("RUN");
   setInterval(dork, 25);
 }
