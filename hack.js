@@ -12,7 +12,6 @@ function dork() {
 		container.style.fontColor = "#FFFF00";
 		container.appendChild(document.createTextNode("NTOP WUZ HERE!!!!"));
 		patient.appendChild(container);
-		console.log(container);
 	}
 }
 
@@ -22,11 +21,34 @@ function decide() {
 		console.log("NTOP GOT NERFED >:(");
 		return;
 	}
-	if (Math.random() < 0.25) {
-	  alert("U HAVE BIN SPARED! ur ok");
-	} else {
-	  alert("RUN");
-	  setInterval(dork, 25);
+	
+	/* Let's not affect people too many times in a row */
+	let recentAttack = true;
+	let lastAttack = parseInt(localStorage.getItem("lastAttack") ?? "0");
+	if (lastAttack < (Date.now() - 3 * 60 * 60 * 1000)) {
+		localStorage.setItem("lastAttack", Date.now());
+		recentAttack = false;
 	}
+	let attackCount = parseInt(localStorage.getItem("attackCount") ?? "0");
+	console.log("NTOP attack values", {attackCount, recentAttack, lastAttack});
+	if (attackCount > 3 && recentAttack) {
+		console.log("User has suffered enough");
+		return;
+	}
+	localStorage.setItem("attackCount", attackCount + 1);
+
+	/* Occasionally spare the user */
+	if (Math.random() < 0.25) {
+		alert("U HAVE BIN SPARED! ur ok");
+		return;
+	}
+	
+	alert("RUN");
+	setInterval(dork, 25);
+
+	/* If the user suffers this long enough, it should stop affecting them for the day */
+	setTimeout(()=>{
+		localStorage.setItem("attackCount", 999);
+	}, 10*1000)
 }
 decide();
